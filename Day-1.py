@@ -1,48 +1,54 @@
 
-##-----------#-----------------#----------------------@-----------------
-##                   Text,lines,rectangle,circle and ellipse  on images
-##-----------#-----------------#----------------------@-----------------
-
 import cv2
-import os
 import numpy as np
 
+#-----------#-----------------#----------------------@-----------------
+                           # Grayscale image to color and vica versa
+#-----------#-----------------#----------------------@-----------------
 
-img1 = cv2.imread(r"C:\\Users\\DIPANSHU\\OneDrive\\Pictures\Screenshots 1\Screenshot 2024-12-24 163243.png")
-old_img2 = cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Pictures\Screenshots 1\Screenshot 2024-12-24 163243.png",0)
-img2 = cv2.cvtColor(old_img2,cv2.COLOR_GRAY2BGR)
 
-cv2.putText(img1,
-            text = "Dipanshu Choudhary",
-            org=(20,100),
-            fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-            fontScale=1,
-            color = (0,255,0),
-            thickness=2,
-            lineType=cv2.LINE_AA
-)
+img1 = cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Pictures\Screenshots 1\Screenshot 2024-12-24 163243.png",0)
+img2= cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Pictures\Screenshots 1\Screenshot 2024-12-24 163243.png")
+re_img1 = cv2.resize(img1,(400,600))
+re_img2 = cv2.resize(img2,(400,600))
 
-cv2.putText(img2,
-            text = "Dipanshu Choudhary",
-            org=(20,100),
-            fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-            fontScale=1,
-            color = (0,255,0),
-            thickness=2,
-            lineType=cv2.LINE_AA
-)
+re_img1_color = cv2.cvtColor(re_img1,cv2.COLOR_GRAY2BGR)
 
-new_img1 = cv2.rectangle(img1 , pt1=(60,140),pt2=(280,450),color=(255,0,0),thickness=2)
-new_img2 = cv2.rectangle(img2,pt1=(60,130),pt2 = (285,445),color =(255,0,0),thickness = 2)
-hsort = np.hstack((new_img1,new_img2))
-
-cv2.imshow('Image',hsort)
+hsorting = np.hstack((re_img1_color,re_img2))
+cv2.imshow("My image",hsorting)
 cv2.waitKey(0)
 
 
--------------->>>> For circle 
-cv2.circle(img, center, radius, color, thickness=None, lineType=None, shift=None)
+import os
 
 
---------------->>>> for ellipse
-cv2.ellipse(img, center, axes, angle(ACW), startAngle, endAngle, color, thickness=None, lineType=None, shift=None)
+
+img1 = cv2.imread(r"C:\\Users\\DIPANSHU\\OneDrive\\Pictures\Screenshots 1\Screenshot 2024-12-24 163243.png")
+img2 = cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Pictures\Screenshots 1\Screenshot 2024-12-24 163222.png")
+re_img1 = cv2.resize(img1,(400,600))
+re_img2 = cv2.resize(img2,(400,600))
+
+merge = np.array([1,2,3,1,2,3])
+hsort = np.hstack((re_img1,re_img2))
+vsort = np.vstack((hsort,hsort))
+print(merge)
+
+cv2.imshow("Image",vsort)
+cv2.waitKey(0)
+
+# print(img) ----> Show img in the form of array (pixel values)
+cv2.destroyAllWindows()
+
+
+#-----------#-----------------#----------------------@-----------------
+                           # Slideshow of images
+#-----------#-----------------#----------------------@-----------------
+
+list_dir = os.listdir(r"C:\Users\DIPANSHU\OneDrive\Pictures\Screenshots 1\New folder")
+for name in list_dir:
+    path = "C:\\Users\\DIPANSHU\\OneDrive\\Pictures\\Screenshots 1\\New folder"
+    img_name = path+"\\"+name
+    img = cv2.imread(img_name)
+    img = cv2.resize(img,(500,500))
+    cv2.imshow("Presentation",img)
+    cv2.waitKey(0)
