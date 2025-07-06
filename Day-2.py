@@ -1,71 +1,48 @@
+
+##-----------#-----------------#----------------------@-----------------
+##                   Text,lines,rectangle,circle and ellipse  on images
+##-----------#-----------------#----------------------@-----------------
+
 import cv2
 import os
-import numpy
+import numpy as np
 
 
-# -----------#-----------------#----------------------@-----------------
-#                            Merge of images
-# -----------#-----------------#----------------------@-----------------
+img1 = cv2.imread(r"C:\\Users\\DIPANSHU\\OneDrive\\Pictures\Screenshots 1\Screenshot 2024-12-24 163243.png")
+old_img2 = cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Pictures\Screenshots 1\Screenshot 2024-12-24 163243.png",0)
+img2 = cv2.cvtColor(old_img2,cv2.COLOR_GRAY2BGR)
 
+cv2.putText(img1,
+            text = "Dipanshu Choudhary",
+            org=(20,100),
+            fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+            fontScale=1,
+            color = (0,255,0),
+            thickness=2,
+            lineType=cv2.LINE_AA
+)
 
-img1 = cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Documents\OpenCV-photos\Dipanshu.jpg")
-img2 = cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Documents\OpenCV-photos\J&K1.jpg")
+cv2.putText(img2,
+            text = "Dipanshu Choudhary",
+            org=(20,100),
+            fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+            fontScale=1,
+            color = (0,255,0),
+            thickness=2,
+            lineType=cv2.LINE_AA
+)
 
-img1 = cv2.resize(img1,(700,800))
-img2 = cv2.resize(img2,(700,800))
+new_img1 = cv2.rectangle(img1 , pt1=(60,140),pt2=(280,450),color=(255,0,0),thickness=2)
+new_img2 = cv2.rectangle(img2,pt1=(60,130),pt2 = (285,445),color =(255,0,0),thickness = 2)
+hsort = np.hstack((new_img1,new_img2))
 
-# new_img1 = cv2.addWeighted(img1,0.7,img2,0.9,1.0)
-
-new_img2 = cv2.subtract(img2,img1)
-
-cv2.imshow("Adding",new_img1)
-cv2.imshow("Substract",new_img2)
+cv2.imshow('Image',hsort)
 cv2.waitKey(0)
 
 
-
-# -----------#-----------------#----------------------@-----------------
-#                            Edge Detection and saving a image
-# -----------#-----------------#----------------------@-----------------
+-------------->>>> For circle 
+cv2.circle(img, center, radius, color, thickness=None, lineType=None, shift=None)
 
 
-img1 = cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Documents\OpenCV-photos\Dipanshu.jpg")
-img1 = cv2.resize(img1,(600,700))
-new_img = cv2.Canny(img1,120,120,L2gradient=True)
-# cv2.imshow("Dippu",new_img)
-# cv2.waitKey(0)
-success =  cv2.imwrite(r"C:\Users\DIPANSHU\OneDrive\Documents\OpenCV-photos\Edge.jpg",new_img)
-if success:
-    print("Image saved successfully.")
-else:
-    print("Image saving failed.")
-
-
-
-
-# -----------#-----------------#----------------------@-----------------
-#                            Blur image
-# -----------#-----------------#----------------------@-----------------
-
-
-# Read and resize the image
-img1 = cv2.imread(r"C:\Users\DIPANSHU\OneDrive\Documents\OpenCV-photos\Dipanshu.jpg")
-img1 = cv2.resize(img1, (600, 700))
-
-# 1. Average Blurring
-avg_blur = cv2.blur(img1, (5, 5))
-
-# 2. Gaussian Blurring
-gaussian_blur = cv2.GaussianBlur(img1, (5, 5), 0)
-
-# 3. Median Blurring
-median_blur = cv2.medianBlur(img1, 5)
-
-# Display all images
-cv2.imshow("Original Image", img1)
-cv2.imshow("Average Blur", avg_blur)
-cv2.imshow("Gaussian Blur", gaussian_blur)
-cv2.imshow("Median Blur", median_blur)
-
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+--------------->>>> for ellipse
+cv2.ellipse(img, center, axes, angle(ACW), startAngle, endAngle, color, thickness=None, lineType=None, shift=None)
